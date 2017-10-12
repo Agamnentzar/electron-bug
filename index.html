@@ -1,0 +1,40 @@
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Test</title>
+</head>
+
+<body style="background: cornflowerblue; font-family: sans-serif;">
+  <div style="height: 30px; background: orange; -webkit-app-region: drag;">drag</div>
+
+  <button id="closeButton">Close</button>
+  <button id="maxButton">Maximize / Restore</button>
+
+  <div id="size" style="font-size: 26px; padding: 10px; text-align: center;">0x0</div>
+
+  <script>
+    const electron = require('electron');
+
+    document.getElementById('closeButton').addEventListener('click', () => {
+      electron.remote.getCurrentWindow().close();
+    });
+
+    document.getElementById('maxButton').addEventListener('click', () => {
+      if (electron.remote.getCurrentWindow().isMaximized()) {
+        electron.remote.getCurrentWindow().unmaximize();
+      } else {
+        electron.remote.getCurrentWindow().maximize();
+      }
+    });
+
+    function updateSize() {
+      requestAnimationFrame(updateSize);
+      document.getElementById('size').textContent = window.innerWidth + 'x' + window.innerHeight;
+    }
+
+    updateSize();
+  </script>
+</body>
+
+</html>
